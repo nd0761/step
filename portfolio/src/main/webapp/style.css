@@ -28,6 +28,45 @@
   margin-right: auto;
   width: 650px;
 }
+/*Add basic design for introduction*/
+#intro {
+    margin-top: 30px;
+    align-items: center;
+}
+/*Add design for profile picture*/
+
+.profile-picture {
+    margin-top: 30px;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 25% 10%;
+    margin-bottom: 30px;
+}
+/*Add design for introduction content*/
+.name {
+    font-size: 30px;
+    color: black;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.occupation {
+    font-size: 15px;
+    color: #434345;
+    text-align: center;
+}
+
+.location {
+    font-size: 13px;
+    color: #5c5c5e;
+    text-align: center;
+}
 
 #greeting-container {
   margin-top: 20px;
