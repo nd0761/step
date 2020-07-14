@@ -138,6 +138,13 @@
 .container p {
   font-size: 13px;
 }
+/*Add pictures preview*/
+.image-thumbnails img {
+    object-fit: cover; width:125px; height:125;
+    width: 100px;
+    height: 100px;
+}
+
 /*Add link design*/
 #link-to-git-prof {
     margin-top:15px;
