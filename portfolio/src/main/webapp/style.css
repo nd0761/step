@@ -29,6 +29,16 @@
     margin-left: auto;
     margin-right: auto;
 }
+/*Edit fonts*/
+p {
+    color: #434345;
+    font-size: 17px;
+}
+
+ul {
+  font-size: 16px;
+}
+
 /*Add bg animation placement*/
 #content #animBg {
     margin-top: 20px;
