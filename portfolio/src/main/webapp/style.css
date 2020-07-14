@@ -138,3 +138,8 @@
 .container p {
   font-size: 13px;
 }
+/*Add link design*/
+#link-to-git-prof {
+    margin-top:15px;
+    display:inline-block
+}
