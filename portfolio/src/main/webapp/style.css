@@ -1,3 +1,28 @@
+/*Add basic design for topnav bar*/
+.topnav {
+  background-color: red;
+  overflow: hidden;
+}
+/*Add design topnav blocks*/
+.topnav a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+/*Add color change*/
+.topnav a:hover {
+  background-color: lightgrey;
+  color: black;
+}
+/*Add color change for activated block*/
+.topnav a.activated-choice {
+  background-color: black;
+  color: white;
+}
+
 #content {
   margin-left: auto;
   margin-right: auto;
