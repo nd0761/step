@@ -1,168 +1,193 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Portfolio</title>
-        <link rel="stylesheet" href="style.css">
-        <script src="script.js"></script>
-    </head>
-    <body>
-        <div class="topnav"> <!-- Navigation bar -->
-            <a class="activated-choice" class="intro">Main</a>
-            <a class="about">About</a>
-            <a class="projects">Projects</a>
-            <a class="hobbies">Hobbies</a>
-            <a class="photobooth">Photos</a>
-            <a class="accounts">Links</a>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <div class="topnav">
+      <!-- Navigation bar -->
+      <a class="activated-choice" href="#intro">Main</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#hobbies">Hobbies</a>
+      <a href="#photos">Photos</a>
+      <a href="#links">Links</a>
+    </div>
+
+    <div id="content">
+      <!-- Main information -->
+
+      <div id="animBg">
+        <div class="myDIV"></div>
+      </div>
+
+      <div class="intro">
+        <!-- Brief introduction -->
+        <div class="profile-picture">
+          <img src="images/img_00_00.jpg" alt="Profile image"/>
         </div>
 
-        <div id="content"> <!-- Main information -->
-
-            <div id="animBg"><div class="myDIV"></div></div>
-
-            <div class="intro"> <!-- Brief introduction -->
-                <div class="profile-picture" >
-                <img src="images/img_00_00.jpg"/>
-                </div>
-                <div class="basic-info">
-                <p class="name">Natalia Denisenko</p>
-                <p class="occupation">Bachelor student Computer Science Faculty in National Research University "Higher school of Econimics".</p>
-                <p class="location">Russia, Moscow.</p>
-                </div>
-                </div>
-
-
-            <div class="about"> <!-- Some basic information about me -->
-                <p style="font-size: 30px; text-align: center">About</p>
-                <p style="text-align: center">
-                    I am ninghteen years old student from Russia. I have been programming for a long time now and look forward to continue to do this.
-                    I love watching cartoons and series in my free time as well as playing games (computer/mobile/board/any).
-                </p>
-            </div>
-
-            <div class="projects"> <!-- Links to my projects -->
-                <p style="font-size: 30px; text-align: center">Projects</p>
-                <p style="text-align: center">I've done some projects such as:</p>
-                <div class="row">
-
-                    <div class="column">
-                        <div class="card">
-                            <div class="container">
-                                <h4 id="name-of-git"><b><a>Small movement recognition</a></b></h4>
-                                <a  id="link-to-git" href="https://github.com/nd0761/movement_recognition"><img src="images/logo.png" style="width: 30px; height: 30px"/></a>
-                                <p>Recognition of human fine motor skills via data collected from a phone</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="card">
-                            <div class="container">
-                            <h4 id="name-of-git"><b><a>Local server</a></b></h4>
-                            <a  id="link-to-git" href="https://github.com/nd0761/local_server"><img src="images/logo.png" style="width: 30px; height: 30px"/></a>
-                            <p>Local server for GET requests processing.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="card">
-                            <div class="container">
-                                <h4 id="name-of-git"><b><a>Generative adversarial networks</a></b></h4>
-                                <a  id="link-to-git" href="https://github.com/Private-ML/gan"><img src="images/logo.png" style="width: 30px; height: 30px"/></a>
-                                <p>Team project on private machine learining.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="hobbies"> <!-- Something about my hobbies -->
-                <p style="font-size: 30px; text-align: center">Hobbies</p>
-                <p style="text-align: center">On my free time I love watching series on Netflix and playing video games.</p>
-                <div class="row">
-
-                    <div class="column">
-                        <div class="card">
-                            <div class="container">
-                                <a><img src="images/br_ba.jpg"/></a>
-                                <p>My most loved series. Amazing work of the actors and magnificent plot left a lasting impression.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="card">
-                            <div class="container">
-                                <a><img src="images/bo_ho.jpg"/></a>
-                                <p>One of the most dark and depressing cartoons I've ever seen, but for some reason it is impossible to tear off.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="card">
-                            <div class="container">
-                                <a><img src="images/fu_al.jpg"/></a>
-                                <p>Anime series straight from my childhood, new version is no worse than the original.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row" style="margin-top: 20px; text-align: center">
-
-                    <div class="column">
-                        <div class="card">
-                            <div class="container">
-                                <a><img src="images/an_cro.jpg"/></a>
-                                <p>Relaxing game without any tasks and competitions. Best thing for killing free time.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="card">
-                            <div class="container">
-                                <a><img src="images/br_wi.jpg"/></a>
-                                <p>One of the best modern rpg games for nintendo switch. And so now I totally looking forward to BoTW2.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="photobooth"> <!-- Bunch of photos -->
-                <p style="font-size: 30px; text-align: center">Photos</p>
-                <p style="text-align: center">
-                    I prefer take pictures of some cute clouds or plants but I'm absolutely bad in this. Here are some random photos which I don't hate. 
-                    As could be seen I rarely take photos of myself, I still don't feel comfortable doing this.
-                </p>
-
-                <div class="image-thumbnails" style="text-align: center">
-                    <a><img src="images/img_01.jpg"/></a>
-                    <a><img src="images/img_02.jpg"/></a>
-                    <a><img src="images/img_03.jpg"/></a>
-                    <a><img src="images/img_05.jpg"/></a>
-                    <a><img src="images/img_06.jpg"/></a>
-                    <a><img src="images/img_07.jpg"/></a>
-                    <a><img src="images/img_08.jpg" style="width:100px;"/></a>
-                    <a><img src="images/img_04.jpg" style="width:100px;"/></a>
-                </div>
-            </div>
-
-            <div class="quote" style="text-align: center"> <!-- Simple script -->
-                <p>Click here to get a random quote from Simpsons:</p>
-                <button onclick="addRandomGreeting() ">Hello</button>
-                <div id="greeting-container"></div>
-            </div>
-
-            <div class="accounts"> <!-- Links to my accounts -->
-                <a  id="link-to-git-prof" href="https://github.com/nd0761" style="margin-left: 0px;">
-                    <img src="images/logo.png" style=" width: 20px"/>
-                </a>
-            </div>
+        <div class="basic-info">
+          <p class="name"><a name="intro"></a>Natalia Denisenko</p>
+          <p class="occupation">Bachelor student Computer Science Faculty in National Research University
+            "Higher school of Econimics".</p>
+          <p class="location">Russia, Moscow.</p>
         </div>
-    </body>
+      </div>
+
+
+      <div class="about">
+        <!-- Some basic information about me -->
+        <p class="my-heading"><a name="about"></a>About</p>
+        <p>
+          I am nineteen years old student from Russia. I have been programming for a long time now and look
+          forward to continue to do this.
+          I love watching cartoons and series in my free time as well as playing games
+          (computer/mobile/board/any).
+        </p>
+      </div>
+
+        <div class="projects"> <!-- Links to my projects -->
+          <p class="my-heading"><a name="projects"></a>Projects</p>
+          <p>I've done some projects such as:</p>
+
+          <div class="row">
+
+            <div class="column">
+              <div class="card">
+                <div class="container">
+                  <a class="my-heading" id="name-of-git"><b><a>Small movement recognition</a></b></a class="my-heading">
+                  <a id="link-to-git" 
+                    href="https://github.com/nd0761/movement_recognition"><img src="images/logo.png" alt="GitHub logo"/></a>
+                    <p>Recognition of human fine motor skills via data collected from a phone</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="card">
+                <div class="container">
+                  <a class="my-heading" id="name-of-git"><b><a>Local server</a></b></a class="my-heading">
+                  <a id="link-to-git"
+                    href="https://github.com/nd0761/local_server"><img src="images/logo.png" alt="GitHub logo"/></a>
+                    <p>Local server for GET requests processing.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="card">
+                <div class="container">
+                  <a class="my-heading" id="name-of-git"><b><a>Generative adversarial networks</a></b></a class="my-heading">
+                  <a id="link-to-git"
+                    href="https://github.com/Private-ML/gan"><img src="images/logo.png" alt="GitHub logo"/></a>
+                    <p>Team project on private machine learining.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="hobbies"> <!-- Something about my hobbies -->
+          <p class="my-heading"><a name="hobbies"></a>Hobbies</p>
+          <p>On my free time I love watching series on Netflix and playing video games.</p>
+
+          <div class="row">
+
+            <div class="column">
+              <div class="card">
+                <div class="container">
+                  <a><img src="images/br_ba.jpg" alt="Breaking Bad poster"/></a>
+                    <p>My most loved series. Amazing work of the actors and magnificent plot left a
+                      lasting impression.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="card">
+                <div class="container">
+                  <a><img src="images/bo_ho.jpg" alt="BoJack Horseman poster"/></a>
+                    <p>One of the most dark and depressing cartoons I've ever seen, but for some reason
+                      it is impossible to tear off.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="card">
+                <div class="container">
+                  <a><img src="images/fu_al.jpg" alt="Fullmetal alchemist poster"/></a>
+                    <p>Anime series straight from my childhood, new version is no worse than the
+                      original.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="column">
+              <div class="card">
+                <div class="container">
+                  <a><img src="images/an_cro.jpg" alt="Animal crossing poster"/></a>
+                    <p>Relaxing game without any tasks and competitions. Best thing for killing free
+                      time.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="card">
+                <div class="container">
+                  <a><img src="images/br_wi.jpg"/ alt="The legend of Zelda Breath of the wild poster"></a>
+                    <p>One of the best modern rpg games for nintendo switch. And so now I totally
+                      looking forward to BoTW2.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="photobooth"> <!-- Bunch of photos -->
+          <p class="my-heading"><a name="photos"></a>Photos</p>
+          <p>
+            I prefer take pictures of some cute clouds or plants but I'm absolutely bad in this. Here are some
+            random photos which I don't hate.
+            As could be seen I rarely take photos of myself, I still don't feel comfortable doing this.
+          </p>
+
+          <div class="image-thumbnails">
+            <a><img src="images/img_01.jpg" alt="Clouds in my city"/></a>
+              <a><img src="images/img_02.jpg" alt="Mountains in Sochi"/></a>
+                <a><img src="images/img_03.jpg" alt="Dried leaf"/></a>
+                  <a><img src="images/img_05.jpg" alt="More clouds from my city"/></a>
+                    <a><img src="images/img_06.jpg" alt="Alive flower"/></a>
+                      <a><img src="images/img_07.jpg" alt="Pines under snow"/></a>
+                        <a><img src="images/img_08.jpg"  alt="My (old)new haircut"/></a>
+                          <a><img src="images/img_04.jpg"  alt="Some pretty effects from instagram"/></a>
+          </div>
+        </div>
+
+        <div class="quote"> <!-- Simple script -->
+          <p>Click here to get a random quote from Simpsons:</p>
+          <button onclick="addRandomGreeting() ">Hello</button>
+          <div id="greeting-container"></div>
+        </div>
+
+        <div class="accounts"> <!-- Links to my accounts -->
+          <a name="links"></a>
+          <a id="link-to-git-prof" href="https://github.com/nd0761">
+            <img src="images/logo.png" alt="GitHub logo"/>
+          </a>
+        </div>
+      </div>
+  </body>
+
 </html>

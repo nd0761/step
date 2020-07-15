@@ -1,105 +1,113 @@
 /*Add basic design for topnav bar*/
 .topnav {
-    font-family: Helvetica;
-    background-color: red;
-    overflow: hidden;
+  text-align: center;
+  width: 70px;
+  height: 216px;
+  position: fixed;
+  font-family: Helvetica;
+  background-color: red;
+  padding: 14px 0px 7px;
+  border: 1px #5c5c5e;
 }
 /*Add design topnav blocks*/
 .topnav a {
-    float: left;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
+  margin-top: 13px;
+  margin-bottom: 13px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 17px;
 }
 /*Add color change*/
 .topnav a:hover {
-    background-color: lightgrey;
-    color: black;
-}
-/*Add color change for activated block*/
-.topnav a.activated-choice {
-    background-color: black;
-    color: white;
+  width: 70px;
+  background-color: lightgrey;
+  color: black;
 }
 
 #content {
-    font-family: Helvetica;
-    margin-left: auto;
-    margin-right: auto;
+  font-family: Helvetica;
+  margin-left: 80px;
+  margin-right: auto;
 }
 /*Edit fonts*/
 p {
-    color: #434345;
-    font-size: 17px;
+  color: #434345;
+  font-size: 17px;
+  text-align: center;
 }
 
 ul {
   font-size: 16px;
 }
 
+.my-heading {
+  font-size: 30px;
+  text-align: center
+}
+
 /*Add bg animation placement*/
 #content #animBg {
-    margin-top: 20px;
-    place-content: center;
-    text-align: center;
-    display: flex;
+  margin-top: 20px;
+  place-content: center;
+  text-align: center;
+  display: flex;
 }
 /*Add frames to animation*/
 #content #animBg .myDIV {
-    display: flex;
-    width: 300px;
-    height: 300px;
-    z-index: -1;
-    border-radius: 50%;
-    background-image: url('./images/merely_cubed.png');
-    animation: mymove 5s infinite;
-    position: absolute;
+  display: flex;
+  width: 300px;
+  height: 300px;
+  z-index: -1;
+  border-radius: 50%;
+  background-image: url('./images/merely_cubed.png');
+  animation: mymove 5s infinite;
+  position: absolute;
 }
 /*Animation frames*/
 @keyframes mymove {
-    /*0% {background-position: right;}*/
-    50% {background-position: right;}
+  /*0% {background-position: right;}*/
+  50% {background-position: right;}
 }
 
 /*Add basic design for introduction*/
 #intro {
-    align-items: center;
-    place-content: center;
+  align-items: center;
+  place-content: center;
 }
 /*Add design for profile picture*/
 
 .profile-picture {
-    margin-top: 75px;
-    text-align: center;
-    margin-bottom: 75px;
+  margin-top: 75px;
+  text-align: center;
+  margin-bottom: 75px;
 }
 
 .profile-picture img {
-    width: 150px;
-    height: 150px;
-    border-radius: 25% 10%;
-    margin-bottom: 30px;
+  width: 150px;
+  height: 150px;
+  border-radius: 25% 10%;
+  margin-bottom: 30px;
 }
 /*Add design for introduction content*/
 .name {
-    font-size: 30px;
-    color: black;
-    margin-bottom: 5px;
-    text-align: center;
+  font-size: 30px;
+  color: black;
+  margin-bottom: 5px;
+  text-align: center;
 }
 
 .occupation {
-    font-size: 15px;
-    color: #434345;
-    text-align: center;
+  font-size: 15px;
+  color: #434345;
+  text-align: center;
 }
 
 .location {
-    font-size: 13px;
-    color: #5c5c5e;
-    text-align: center;
+  font-size: 13px;
+  color: #5c5c5e;
+  text-align: center;
 }
 
 #greeting-container {
@@ -107,11 +115,11 @@ ul {
 }
 /*Add design for card container*/
 .row {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 0 -5px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 10px -5px;
 }
 
 .row:after {
@@ -130,12 +138,14 @@ ul {
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
+  text-align: center;
 }
 
 .card img {
-  object-fit: cover; width:125px; height:200px;
+  object-fit: cover; 
+  width:125px; 
+  height:200px;
 }
-
 
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -148,15 +158,36 @@ ul {
 .container p {
   font-size: 13px;
 }
+
+#link-to-git img {
+  width: 25px;
+  height: 25px
+}
+
+.image-thumbnails {
+  text-align: center;
+}
+
 /*Add pictures preview*/
 .image-thumbnails img {
-    object-fit: cover; width:125px; height:125;
-    width: 100px;
-    height: 100px;
+  object-fit: cover;
+  width:125px; 
+  height:125;
+  width: 100px;
+  height: 100px;
+}
+
+.quote {
+  text-align: center;
 }
 
 /*Add link design*/
 #link-to-git-prof {
-    margin-top:15px;
-    display:inline-block
+  margin-top: 15px;
+  display: inline-block;
+  margin-left: 0px;
+}
+
+#link-to-git-prof img {
+  width: 20px
 }
