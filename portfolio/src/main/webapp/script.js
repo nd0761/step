@@ -27,18 +27,20 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
-//Fetch request from the page /comments and put returned info to the list
+/**
+ * Adds commentaries element to the page.
+ */
 function showComments() {
-    console.log("fetching comments");
-    fetch("/comments").then(response => console.log(response.json().name.text()));
 
+    // Response received in the form: {"commentsArray": [{name: "", comment:"", rating:}, {}, {}]}.
     fetch("/comments").then(response => response.json()).then((stats) => {
       const statsListElement = document.getElementById('comment-field');
       statsListElement.innerHTML = '';
-      for (let i = 0; i < 3; i++) {
-          statsListElement.appendChild(createListElement('Name: ' + stats.name[i]));
-          statsListElement.appendChild(createListElement('Comment text: ' + stats.comment[i]));
-          statsListElement.appendChild(createListElement('Rating: ' + stats.rating[i]));
+
+      for (i in stats.commentsArray) {
+          statsListElement.appendChild(createListElement('Name: ' + stats.commentsArray[i].name));
+          statsListElement.appendChild(createListElement('Comment text: ' + stats.commentsArray[i].commentText));
+          statsListElement.appendChild(createListElement('Rating: ' + stats.commentsArray[i].rating));
           statsListElement.appendChild(createListElement('\n'));
       }
     });

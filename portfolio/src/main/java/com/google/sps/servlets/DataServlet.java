@@ -10,7 +10,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License. 
+// limitations under the License.
 
 package com.google.sps.servlets;
 
@@ -19,44 +19,69 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Arrays;
 
-/* Servlet that returns json of commentaries statistics*/
+import com.google.gson.Gson; 
+import com.google.gson.GsonBuilder;  
+
+/** Servlet that returns commentaries's statistics in JSON format. */
 @WebServlet("/comments")
 public class DataServlet extends HttpServlet {
 
-  /* Some hardcoded examples*/
-  String [] commentList = {"Hi! I'm Mark", "Hello, my name is Nancy :3", "Good morning/afternoon/evening! I'm Alex"};
-  String [] nameList = {"Mark", "Nancy", "Alex"};
-  String [] ratingList = {"4/5", "5/5", "0/5"};
-  int listLength = commentList.length;
+  class commentStat {
+      String name;
+      String commentText;
+      int rating;
 
-  /* Processing of GET request to /comment page, json dtring will be returned*/
+      public commentStat(String newName, String newText, int newRating) {
+        name = newName;
+        commentText = newText;
+        rating = newRating;
+      }
+
+      public String getName() {
+        return name;
+      }
+
+      public String getText() {
+        return commentText;
+      }
+
+      public int getRating() {
+        return rating;
+      }
+  }
+
+  /** Processing of GET request from the page "/comment", commentaries's statistics in JSON format will be returned. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = "{";
-    json += convertToJsonList("comment", commentList);
-    json += ",";
-    json += convertToJsonList("name", nameList);
-    json += ",";
-    json += convertToJsonList("rating", ratingList);
+
+    // Some hardcoded examples.
+    commentStat objt1 = new commentStat("Mark", "Hi! Im Mark!", 3);
+    commentStat objt2 = new commentStat("Nora", "Hello) My name is Nora!", 2);
+    commentStat objt3 = new commentStat("Sam", "Hi! Hello! Sam is here for you!", 5);
+
+    List<commentStat> commentsList = Arrays.asList(objt1, objt2, objt3);
+
+    String json = "{\"commentsArray\":[";
+    for (int i = 0; i < commentsList.size(); ++i) {
+      json += convertToJsonList(commentsList.get(i));
+      if (i < commentsList.size() - 1) {
+          json += ",";
+      } else {
+          json += "]";
+      }
+    }
     json += "}";
 
-    // Send the JSON as the response
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
 
-  //Converter to json format "name":[item1, item2, item3, ...]
-  private String convertToJsonList(String type, String [] listOfObj) {
-    String json = "\"" + type + "\":[";
-    for (int i = 0; i < listLength; ++i) {
-        json += "\"" + listOfObj[i] + "\"";
-        if (i != listLength - 1) {
-            json += ",";
-        } else {
-            json += "]";
-        }
-    }
+  private String convertToJsonList(commentStat obj) {
+    Gson gson = new Gson();
+    String json = gson.toJson(obj);
     return json;
   }
 }

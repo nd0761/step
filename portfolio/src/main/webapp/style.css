@@ -1,4 +1,4 @@
-/*Add basic design for topnav bar*/
+/* Design for the top navigation bar. */
 .topnav {
   text-align: center;
   width: 70px;
@@ -9,7 +9,8 @@
   padding: 14px 0px 7px;
   border: 1px #5c5c5e;
 }
-/*Add design topnav blocks*/
+
+/* Design for the navigation bar's blocks. */
 .topnav a {
   margin-top: 13px;
   margin-bottom: 13px;
@@ -19,7 +20,8 @@
   display: block;
   font-size: 17px;
 }
-/*Add color change*/
+
+/* Color change for mouse hover. */
 .topnav a:hover {
   width: 70px;
   background-color: lightgrey;
@@ -31,7 +33,8 @@
   margin-left: 80px;
   margin-right: auto;
 }
-/*Edit fonts*/
+
+/* Fonts design. */
 p {
   color: #434345;
   font-size: 17px;
@@ -47,14 +50,15 @@ ul {
   text-align: center
 }
 
-/*Add bg animation placement*/
+/* Background animation placement. */
 #content #animBg {
   margin-top: 20px;
   place-content: center;
   text-align: center;
   display: flex;
 }
-/*Add frames to animation*/
+
+/* Animation frames. */
 #content #animBg .myDIV {
   display: flex;
   width: 300px;
@@ -65,19 +69,18 @@ ul {
   animation: mymove 5s infinite;
   position: absolute;
 }
-/*Animation frames*/
+
 @keyframes mymove {
-  /*0% {background-position: right;}*/
   50% {background-position: right;}
 }
 
-/*Add basic design for introduction*/
+/* Design for introduction. */
 #intro {
   align-items: center;
   place-content: center;
 }
-/*Add design for profile picture*/
 
+/* Design for profile picture. */
 .profile-picture {
   margin-top: 75px;
   text-align: center;
@@ -90,7 +93,8 @@ ul {
   border-radius: 25% 10%;
   margin-bottom: 30px;
 }
-/*Add design for introduction content*/
+
+/* Design for the introduction content. */
 .name {
   font-size: 30px;
   color: black;
@@ -113,7 +117,8 @@ ul {
 #greeting-container {
   margin-top: 20px;
 }
-/*Add design for card container*/
+
+/* Design for cards's container. */
 .row {
   text-align: center;
   display: flex;
@@ -134,7 +139,8 @@ ul {
   width: 30%;
   padding: 0 10px;
 }
-/*Add card design*/
+
+/* Cards design. */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
@@ -168,7 +174,7 @@ ul {
   text-align: center;
 }
 
-/*Add pictures preview*/
+/* Pictures preview. */
 .image-thumbnails img {
   object-fit: cover;
   width:125px; 
@@ -181,7 +187,6 @@ ul {
   text-align: center;
 }
 
-/*Add link design*/
 #link-to-git-prof {
   margin-top: 15px;
   display: inline-block;
@@ -192,12 +197,12 @@ ul {
   width: 20px
 }
 
-#additional-functional {
+#simple-comment-field-container {
   margin-left: 80px;
   text-align: center;
   font-family: Helvetica;
 }
 
-#comment-field {
+#comment-field-table {
   list-style-type: none;
 }
