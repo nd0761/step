@@ -191,3 +191,13 @@ ul {
 #link-to-git-prof img {
   width: 20px
 }
+
+#additional-functional {
+  margin-left: 80px;
+  text-align: center;
+  font-family: Helvetica;
+}
+
+#comment-field {
+  list-style-type: none;
+}

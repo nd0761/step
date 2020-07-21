@@ -26,3 +26,26 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+//Fetch request from the page /comments and put returned info to the list
+function showComments() {
+    console.log("fetching comments");
+    fetch("/comments").then(response => console.log(response.json().name.text()));
+
+    fetch("/comments").then(response => response.json()).then((stats) => {
+      const statsListElement = document.getElementById('comment-field');
+      statsListElement.innerHTML = '';
+      for (let i = 0; i < 3; i++) {
+          statsListElement.appendChild(createListElement('Name: ' + stats.name[i]));
+          statsListElement.appendChild(createListElement('Comment text: ' + stats.comment[i]));
+          statsListElement.appendChild(createListElement('Rating: ' + stats.rating[i]));
+          statsListElement.appendChild(createListElement('\n'));
+      }
+    });
+}
+
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
