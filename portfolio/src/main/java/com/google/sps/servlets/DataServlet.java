@@ -14,6 +14,8 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.CommentStat;
+import com.google.sps.data.CommentsArray;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,67 +23,54 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Iterator;
 
 import com.google.gson.Gson; 
 import com.google.gson.GsonBuilder;  
 
-/** Servlet that returns commentaries's statistics in JSON format. */
+/** Servlet that store and return information about user comments. */
 @WebServlet("/comments")
 public class DataServlet extends HttpServlet {
 
-  class commentStat {
-      String name;
-      String commentText;
-      int rating;
+  // A list of all comments.
+  CommentsArray commentsList = new CommentsArray();
 
-      public commentStat(String newName, String newText, int newRating) {
-        name = newName;
-        commentText = newText;
-        rating = newRating;
-      }
-
-      public String getName() {
-        return name;
-      }
-
-      public String getText() {
-        return commentText;
-      }
-
-      public int getRating() {
-        return rating;
-      }
-  }
-
-  /** Processing of GET request from the page "/comment", commentaries's statistics in JSON format will be returned. */
+  /** Processing GET request from the page "/comments", commentaries's statistics in JSON format will be returned. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    // Some hardcoded examples.
-    commentStat objt1 = new commentStat("Mark", "Hi! Im Mark!", 3);
-    commentStat objt2 = new commentStat("Nora", "Hello) My name is Nora!", 2);
-    commentStat objt3 = new commentStat("Sam", "Hi! Hello! Sam is here for you!", 5);
-
-    List<commentStat> commentsList = Arrays.asList(objt1, objt2, objt3);
-
-    String json = "{\"commentsArray\":[";
-    for (int i = 0; i < commentsList.size(); ++i) {
-      json += convertToJsonList(commentsList.get(i));
-      if (i < commentsList.size() - 1) {
-          json += ",";
-      } else {
-          json += "]";
-      }
-    }
-    json += "}";
+    String json = convertToJsonList(commentsList);
 
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
 
-  private String convertToJsonList(commentStat obj) {
+  private String convertToJsonList(CommentsArray obj) {
     Gson gson = new Gson();
     String json = gson.toJson(obj);
     return json;
+  }
+
+  /** Processing POST request by storing received commentary. */
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    // Get the input from the form.
+    Enumeration en=request.getParameterNames();
+    String[] values=new String[100];
+
+    CommentStat obj = new CommentStat();
+
+    obj.name = request.getParameter("user-name");
+    obj.commentText = request.getParameter("user-comment");
+    obj.rating = Integer.valueOf(request.getParameter("user-rating"));
+
+    commentsList.add(obj);
+
+    // Redirect back to the HTML page.
+    response.sendRedirect("/index.html");
   }
 }

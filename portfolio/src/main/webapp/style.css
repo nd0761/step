@@ -201,8 +201,16 @@ ul {
   margin-left: 80px;
   text-align: center;
   font-family: Helvetica;
+  margin-right: auto;
 }
 
 #comment-field-table {
   list-style-type: none;
+}
+
+form {
+  margin-left: 80px;
+  text-align: center;
+  font-family: Helvetica;
+  margin-right: auto;
 }

@@ -32,18 +32,18 @@ function addRandomGreeting() {
  */
 function showComments() {
 
-    // Response received in the form: {"commentsArray": [{name: "", comment:"", rating:}, {}, {}]}.
-    fetch("/comments").then(response => response.json()).then((stats) => {
-      const statsListElement = document.getElementById('comment-field');
-      statsListElement.innerHTML = '';
+  // Response received in the form: {"commentsArray": [{name: "", comment:"", rating:}, {}, {}]}.
+  fetch("/comments").then(response => response.json()).then((stats) => {
+    const statsListElement = document.getElementById('comment-field-table');
+    statsListElement.innerHTML = '';
 
-      for (i in stats.commentsArray) {
-          statsListElement.appendChild(createListElement('Name: ' + stats.commentsArray[i].name));
-          statsListElement.appendChild(createListElement('Comment text: ' + stats.commentsArray[i].commentText));
-          statsListElement.appendChild(createListElement('Rating: ' + stats.commentsArray[i].rating));
-          statsListElement.appendChild(createListElement('\n'));
-      }
-    });
+    for (i in stats.comments) {
+      statsListElement.appendChild(createListElement('Name: ' + stats.comments[i].name));
+      statsListElement.appendChild(createListElement('Comment text: ' + stats.comments[i].commentText));
+      statsListElement.appendChild(createListElement('Rating: ' + stats.comments[i].rating));
+      statsListElement.appendChild(createListElement('\n'));
+    }
+  });
 }
 
 function createListElement(text) {
