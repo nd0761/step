@@ -26,3 +26,28 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+/**
+ * Adds commentaries element to the page.
+ */
+function showComments() {
+
+  // Response received in the form: {"commentsArray": [{name: "", comment:"", rating:}, {}, {}]}.
+  fetch("/comments").then(response => response.json()).then((commentList) => {
+    const commentsListElement = document.getElementById('comment-field-table');
+    commentsListElement.innerHTML = '';
+
+    for (i in commentList) {
+      commentsListElement.appendChild(createListElement('Name: ' + commentList[i].name));
+      commentsListElement.appendChild(createListElement('Comment text: ' + commentList[i].text));
+      commentsListElement.appendChild(createListElement('Rating: ' + commentList[i].rating));
+      commentsListElement.appendChild(createListElement('\n'));
+    }
+  });
+}
+
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}

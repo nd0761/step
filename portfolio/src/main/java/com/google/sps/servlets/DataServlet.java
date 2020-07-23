@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,19 +14,60 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.Comment;
+
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Iterator;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
+import com.google.gson.Gson; 
+import com.google.gson.GsonBuilder;  
+
+/** Servlet that store and return information about user comments. */
+@WebServlet("/comments")
 public class DataServlet extends HttpServlet {
 
+  // A list of all comments.
+  ArrayList<Comment> commentsList = new ArrayList<>();
+
+  /** Processes GET requests for "/comments" and returns a list of comments in JSON format. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello world!</h1>");
+    String json = convertToJsonList();
+
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+  private String convertToJsonList() {
+    Gson gson = new Gson();
+    String json = gson.toJson(commentsList);
+    return json;
+  }
+
+  /** Processes POST request by storing received commentary. */
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    // Get the input from the form.
+    Comment newComment = new Comment();
+
+    newComment.updateName(request.getParameter("user-name"));
+    newComment.updateText(request.getParameter("user-comment"));
+    newComment.updateRating(Integer.valueOf(request.getParameter("user-rating")));
+
+    commentsList.add(newComment);
+
+    // Redirect back to the HTML page.
+    response.sendRedirect("/index.html");
   }
 }
