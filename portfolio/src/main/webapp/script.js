@@ -33,15 +33,15 @@ function addRandomGreeting() {
 function showComments() {
 
   // Response received in the form: {"commentsArray": [{name: "", comment:"", rating:}, {}, {}]}.
-  fetch("/comments").then(response => response.json()).then((stats) => {
-    const statsListElement = document.getElementById('comment-field-table');
-    statsListElement.innerHTML = '';
+  fetch("/comments").then(response => response.json()).then((commentList) => {
+    const commentsListElement = document.getElementById('comment-field-table');
+    commentsListElement.innerHTML = '';
 
-    for (i in stats.comments) {
-      statsListElement.appendChild(createListElement('Name: ' + stats.comments[i].name));
-      statsListElement.appendChild(createListElement('Comment text: ' + stats.comments[i].commentText));
-      statsListElement.appendChild(createListElement('Rating: ' + stats.comments[i].rating));
-      statsListElement.appendChild(createListElement('\n'));
+    for (i in commentList) {
+      commentsListElement.appendChild(createListElement('Name: ' + commentList[i].name));
+      commentsListElement.appendChild(createListElement('Comment text: ' + commentList[i].text));
+      commentsListElement.appendChild(createListElement('Rating: ' + commentList[i].rating));
+      commentsListElement.appendChild(createListElement('\n'));
     }
   });
 }

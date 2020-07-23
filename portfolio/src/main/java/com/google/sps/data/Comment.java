@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,21 +14,33 @@
 
 package com.google.sps.data;
 
-import com.google.sps.data.CommentStat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
-import java.util.LinkedList;
+/** Class for storing an information about user commentaries. */
+public class Comment {
+  private String name;
+  private String text;
+  private int rating;
 
-/** Class for storing list of commentaries. */
-public class CommentsArray {
-  public List<CommentStat> comments;
-
-  public CommentsArray() {
-    comments = new LinkedList<CommentStat>(Arrays.asList());
+  public String getName() {
+    return name;
   }
 
-  public void add(CommentStat obj) {
-    comments.add(obj);
+  public String getText() {
+    return text;
+  }
+
+  public int getRating() {
+    return rating;
+  }
+
+  public void updateName(String newName) {
+    name = newName;
+  }
+
+  public void updateText(String newText) {
+    text = newText;
+  }
+
+  public void updateRating(int newRating) {
+    rating = newRating;
   }
 }
