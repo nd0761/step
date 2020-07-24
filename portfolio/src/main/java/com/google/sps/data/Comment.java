@@ -20,6 +20,18 @@ public class Comment {
   private String text;
   private int rating;
 
+  public Comment(String newName, String newText, int newRating) {
+    name = newName;
+    text = newText;
+    rating = newRating;
+  }
+
+  public Comment() {
+    name = "";
+    text = "";
+    rating = -1;
+  }
+
   public String getName() {
     return name;
   }
