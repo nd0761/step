@@ -43,7 +43,6 @@ import com.google.gson.GsonBuilder;
 /** Servlet that store and return information about user comments. */
 @WebServlet("/comments")
 public class DataServlet extends HttpServlet {
-
   /** Processes GET requests for "/comments" and returns a list of comments in JSON format. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -57,10 +56,10 @@ public class DataServlet extends HttpServlet {
     // Get list of comments.
     List<Comment> commentsList = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      
       String name = (String) entity.getProperty("name");
       String text = (String) entity.getProperty("text");
       int rating = ((Long) entity.getProperty("rating")).intValue();
+
       Comment comment = new Comment(name, text, rating);
       
       commentsList.add(comment);
@@ -73,13 +72,11 @@ public class DataServlet extends HttpServlet {
     // Return response to the request.
     response.setContentType("application/json;");
     response.getWriter().println(json);
-    return;
   }
 
   /** Processes POST request by storing received commentary. */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     // Create DataStore entity.
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("name", request.getParameter("user-name"));
