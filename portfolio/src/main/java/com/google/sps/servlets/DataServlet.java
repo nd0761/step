@@ -16,6 +16,14 @@ package com.google.sps.servlets;
 
 import com.google.sps.data.Comment;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,37 +43,49 @@ import com.google.gson.GsonBuilder;
 /** Servlet that store and return information about user comments. */
 @WebServlet("/comments")
 public class DataServlet extends HttpServlet {
-
-  // A list of all comments.
-  ArrayList<Comment> commentsList = new ArrayList<>();
-
   /** Processes GET requests for "/comments" and returns a list of comments in JSON format. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJsonList();
+    // Create new Query for Commen objects.
+    Query query = new Query("Comment");
 
-    response.setContentType("application/json;");
-    response.getWriter().println(json);
-  }
+    // Get access to dataStore.
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
 
-  private String convertToJsonList() {
+    // Get list of comments.
+    List<Comment> commentsList = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      String name = (String) entity.getProperty("name");
+      String text = (String) entity.getProperty("text");
+      int rating = ((Long) entity.getProperty("rating")).intValue();
+
+      Comment comment = new Comment(name, text, rating);
+      
+      commentsList.add(comment);
+    }
+
+    // Convert list of comments to JSON format.
     Gson gson = new Gson();
     String json = gson.toJson(commentsList);
-    return json;
+
+    // Return response to the request.
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
   }
 
   /** Processes POST request by storing received commentary. */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Create DataStore entity.
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("name", request.getParameter("user-name"));
+    commentEntity.setProperty("text", request.getParameter("user-comment"));
+    commentEntity.setProperty("rating", Integer.valueOf(request.getParameter("user-rating")));
 
-    // Get the input from the form.
-    Comment newComment = new Comment();
-
-    newComment.updateName(request.getParameter("user-name"));
-    newComment.updateText(request.getParameter("user-comment"));
-    newComment.updateRating(Integer.valueOf(request.getParameter("user-rating")));
-
-    commentsList.add(newComment);
+    // Store new comment.
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
 
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");

@@ -32,7 +32,7 @@ function addRandomGreeting() {
  */
 function showComments() {
 
-  // Response received in the form: {"commentsArray": [{name: "", comment:"", rating:}, {}, {}]}.
+  // Response received in the form: [{name: "", comment:"", rating:}, {}, {}].
   fetch("/comments").then(response => response.json()).then((commentList) => {
     const commentsListElement = document.getElementById('comment-field-table');
     commentsListElement.innerHTML = '';
