@@ -42,9 +42,8 @@ function showComments() {
   let URL = "/comments?number=" + numberOfComments;
 
   // Response received in the form: [{name: "", comment:"", rating:}, {}, {}].
-  fetch(URL, {
-    method: 'GET',
-  }).then(response => response.json()).then((commentList) => {
+  fetch(URL).then(response => response.json()).then((commentList) => {
+    console.log("Recieve request with comments array")
     const commentsListElement = document.getElementById('comment-field-table');
     commentsListElement.innerHTML = '';
 
@@ -108,8 +107,17 @@ function toggleCommentSection() {
       comments = document.getElementById("shown-comment");
     }
 
+    console.log("Remove comment section");
   } else {
     commentSection.style.width = "450px";
     displayButton.innerHTML = "Close comment section";
+
+    console.log("Show comment section");
   }
+}
+
+function deleteComments() {
+  fetch("/delete-comments", {
+    method: 'POST',
+  }).then(res => console.log("Delete all comments"));
 }
