@@ -46,8 +46,15 @@ public class DataServlet extends HttpServlet {
   /** Processes GET requests for "/comments" and returns a list of comments in JSON format. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get requested number of comments.
+    int numberOfComments = Integer.valueOf(request.getParameter("number"));
+    
+    if (numberOfComments == 0) {
+      numberOfComments = -1;
+    }
+
     // Create new Query for Commen objects.
-    Query query = new Query("Comment");
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
     // Get access to dataStore.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -56,6 +63,11 @@ public class DataServlet extends HttpServlet {
     // Get list of comments.
     List<Comment> commentsList = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
+      if (numberOfComments == 0) {
+        break;
+      } else {
+        numberOfComments -= 1;
+      }
       String name = (String) entity.getProperty("name");
       String text = (String) entity.getProperty("text");
       int rating = ((Long) entity.getProperty("rating")).intValue();
@@ -79,9 +91,12 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Create DataStore entity.
     Entity commentEntity = new Entity("Comment");
+    long timestamp = System.currentTimeMillis();
+
     commentEntity.setProperty("name", request.getParameter("user-name"));
-    commentEntity.setProperty("text", request.getParameter("user-comment"));
+    commentEntity.setProperty("text", request.getParameter("user-text"));
     commentEntity.setProperty("rating", Integer.valueOf(request.getParameter("user-rating")));
+    commentEntity.setProperty("timestamp", timestamp);
 
     // Store new comment.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
