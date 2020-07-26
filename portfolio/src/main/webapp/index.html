@@ -17,6 +17,10 @@
       <a href="#photos">Photos</a>
       <a href="#links">Links</a>
     </div>
+    
+    <button onclick="toggleCommentSection()" class="display-comments-buttons">
+      Show comment section
+    </button>
 
     <div id="content"> <!-- Main information -->
 
@@ -185,24 +189,49 @@
       </div>
     </div>
 
-    <div id="simple-comment-field-container">
-      <ul id="comment-field-table"></ul>
-      <button onclick="showComments()">Show comments</button>
+    <div class="comment-section">
+      <form action="/comments" method="POST">
+        <p>Please enter following information:</p>
+
+        <div class="comment-box">
+          <div id="top-section">
+            <input type="text" name="user-name" id="name-section" placeholder="Name">
+
+            <div id="rating-section">
+              <p>Rating→</p>
+              <select name="user-rating">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="text-section">
+            <textarea type="text" name="user-text" placeholder="Your comment"></textarea>
+          </div>
+        </div>
+        <input type="submit" />
+      </form>
+      <div id="show-comments-button">
+        <select id="number-of-comments">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>5</option>
+          <option>10</option>
+          <option>20</option>
+          <option>all</option>
+        </select> 
+        <button onclick="showComments()">Show comments</button>
+      </div>
+      <div id="simple-comment-field-container">
+        <a id="comment-field-table"></a>
+      </div>
     </div>
 
-    <form action="/comments" method="POST">
-
-      <p>Please enter following information:</p>
-      <p>Your name:</p>
-      <input type="text" name="user-name">
-      <p>Your comment:</p>
-      <input type="text" name="user-comment">
-      <p>Your rating:</p>
-      <input type="number" name="user-rating" min="0" max="5" value="1">
-      <br/><br/>
-
-      <input type="submit" />
-    </form>
   </body>
 
 </html>
