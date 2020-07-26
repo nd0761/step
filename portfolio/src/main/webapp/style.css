@@ -2,19 +2,21 @@
 .topnav {
   text-align: center;
   width: 70px;
-  height: 216px;
+  height: 230px;
   position: fixed;
   font-family: Helvetica;
-  background-color: red;
+  border: solid  rgba(235, 29, 29) 1px;
+  border-radius: 7px;
+  background-color: white;
+  backdrop-filter: blur(1px);
   padding: 14px 0px 7px;
-  border: 1px #5c5c5e;
 }
 
 /* Design for the navigation bar's blocks. */
 .topnav a {
   margin-top: 13px;
   margin-bottom: 13px;
-  color: white;
+  color: red;
   text-align: center;
   text-decoration: none;
   display: block;
@@ -24,8 +26,24 @@
 /* Color change for mouse hover. */
 .topnav a:hover {
   width: 70px;
-  background-color: lightgrey;
-  color: black;
+  background-color: rgba(235, 29, 29, 0.3);
+  color: red;
+}
+
+.display-comments-buttons {
+  position: fixed;
+  display: initial;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin-top: 5px;
+  height: 25px;
+  border: solid rgb(163, 163, 163) 1px;
+  backdrop-filter: blur(2px);
+  background-color: rgb(255, 255, 255, 0.8);
+  color: rgb(116, 116, 116);
+  border-radius: 7px;
 }
 
 #content {
@@ -197,20 +215,133 @@ ul {
   width: 20px
 }
 
-#simple-comment-field-container {
-  margin-left: 80px;
+.comment-section {
+  margin-top: 35px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 0px;
+  padding-top: 10px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: fixed;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgb(163, 163, 163);
+  backdrop-filter: blur(2px);
+  transition: 0.5s;
   text-align: center;
-  font-family: Helvetica;
-  margin-right: auto;
+}
+
+.comment-box{
+  margin-top: 5px;
+  margin-right: 20px;
+  margin-left: 20px;
+  border: 1px solid rgb(163, 163, 163);
+  border-top-left-radius: 13px;
+  border-top-right-radius: 13px;
+}
+
+.comment-box #top-section {
+  border-bottom: 1px solid rgb(163, 163, 163);
+  margin-top: 3px;
+  margin-bottom: 3px;
+  height: 20px;
+}
+
+#name-section {
+  width: 45%;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  float: left;
+  margin-left: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: rgb(116, 116, 116);
+  text-align: left;
+}
+
+#name-section placeholder {
+  color: rgb(116, 116, 116);
+}
+
+#rating-section {
+  margin-top: 0px;
+  margin-left: 60%;
+}
+
+#rating-section select {
+  border: none;
+}
+
+#rating-section p {
+  margin-top: 0px;
+  margin-left: 3px;
+  float: left;
+  font-size: 13px;
+  color: rgb(116, 116, 116);
+}
+
+#text-section textarea {
+  width: 95%;
+  height: 200px;
+  border-color: 1px solid rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0);
+  resize: none;
+}
+
+#text-section p {
+  width: 95%;
+  margin-left: 2.5%;
+  height: auto;
+  border-color: 1px solid rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 15px;
+  color: rgb(88, 88, 88);
+  resize: none;
+  text-align: left;
+}
+
+#text-section textarea placeholder {
+  color: rgb(116, 116, 116);
+}
+
+input[type="submit"] {
+  margin-right: 20px;
+  margin-top: 3px;
+  height: 25px;
+  float: right;
+  border: solid rgb(163, 163, 163) 1px;
+  background-color: rgb(255, 255, 255, 0.8);
+  color: rgb(116, 116, 116);
+  border-radius: 7px;
+}
+
+#show-comments-button {
+  margin-top: 35px;
+}
+
+#show-comments-button select{
+  float: left;
+  margin-left: 30%;
+  height: 25px;
+}
+
+#show-comments-button button {
+  margin-right: 20px;
+  height: 25px;
+  width: 120px;
+  float: right;
+  border: solid rgb(163, 163, 163) 1px;
+  background-color: rgb(255, 255, 255, 0.8);
+  color: rgb(116, 116, 116);
+  border-radius: 7px;
+}
+
+#simple-comment-field-container {
+  margin-top: 65px;
 }
 
 #comment-field-table {
-  list-style-type: none;
-}
-
-form {
-  margin-left: 80px;
-  text-align: center;
-  font-family: Helvetica;
-  margin-right: auto;
+  margin-top: 10px;
 }
