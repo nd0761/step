@@ -31,23 +31,85 @@ function addRandomGreeting() {
  * Adds commentaries element to the page.
  */
 function showComments() {
+  let dropdownNumber = document.getElementById('number-of-comments');
+  let numberOfComments = dropdownNumber.options[dropdownNumber.selectedIndex].text;
+
+  if (numberOfComments == "all") {
+    numberOfComments = "0";
+  }
+
+  // Hardcoded URL with requsted number of comments.
+  let URL = "/comments?number=" + numberOfComments;
 
   // Response received in the form: [{name: "", comment:"", rating:}, {}, {}].
-  fetch("/comments").then(response => response.json()).then((commentList) => {
+  fetch(URL, {
+    method: 'GET',
+  }).then(response => response.json()).then((commentList) => {
     const commentsListElement = document.getElementById('comment-field-table');
     commentsListElement.innerHTML = '';
 
     for (i in commentList) {
-      commentsListElement.appendChild(createListElement('Name: ' + commentList[i].name));
-      commentsListElement.appendChild(createListElement('Comment text: ' + commentList[i].text));
-      commentsListElement.appendChild(createListElement('Rating: ' + commentList[i].rating));
-      commentsListElement.appendChild(createListElement('\n'));
+      commentsListElement.appendChild(createListElement(
+        commentList[i].name, commentList[i].text, commentList[i].rating)
+      );
     }
   });
 }
 
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+function createListElement(name, text, rating) {
+  let newCommentBox = document.createElement('div');
+  newCommentBox.className = "comment-box";
+
+  let topSection = document.createElement('div');
+  topSection.id = "top-section";
+
+  let newName = document.createElement('p');
+  newName.id = "name-section";
+  newName.innerHTML = name;
+
+  topSection.appendChild(newName);
+
+  let ratingSection = document.createElement('div');
+  ratingSection.id = "rating-section";
+  
+  let newRating = document.createElement('p');
+  newRating.innerHTML = "Rating→" + rating.toString();
+
+  ratingSection.appendChild(newRating);
+  topSection.appendChild(ratingSection);
+
+  let textSection = document.createElement('div');
+  textSection.id = "text-section";
+
+  let newText = document.createElement('p');
+  newText.innerHTML = text;
+
+  textSection.appendChild(newText);
+
+  newCommentBox.appendChild(topSection);
+  newCommentBox.appendChild(textSection);
+
+  newCommentBox.id = "shown-comment";
+
+  return newCommentBox;
+}
+
+function toggleCommentSection() {
+  let displayButton = document.getElementsByClassName('display-comments-buttons')[0];
+  let commentSection = document.getElementsByClassName('comment-section')[0];
+
+  if (commentSection.style.width == "450px") {
+    commentSection.style.width = "0%";
+    displayButton.innerHTML = "Show comment section";
+
+    let comments = document.getElementById("shown-comment");
+    while (comments != null) {
+      comments.parentNode.removeChild(comments);
+      comments = document.getElementById("shown-comment");
+    }
+
+  } else {
+    commentSection.style.width = "450px";
+    displayButton.innerHTML = "Close comment section";
+  }
 }
