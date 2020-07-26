@@ -220,7 +220,7 @@ ul {
   top: 0;
   bottom: 0;
   right: 0;
-  width: 0px;
+  width: 300px;
   padding-top: 10px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -231,6 +231,14 @@ ul {
   backdrop-filter: blur(2px);
   transition: 0.5s;
   text-align: center;
+}
+
+#delete-comments-button {
+  height: 25px;
+  border: solid rgb(163, 163, 163) 1px;
+  background-color: rgb(255, 255, 255, 0.8);
+  color: rgb(116, 116, 116);
+  border-radius: 7px;
 }
 
 .comment-box{
