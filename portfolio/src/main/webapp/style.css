@@ -357,4 +357,5 @@ input[type="submit"] {
 #map {
   margin-top: 10px;
   height: 350px;
+  text-align: center;
 }
