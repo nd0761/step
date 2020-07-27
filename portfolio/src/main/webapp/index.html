@@ -6,6 +6,7 @@
     <title>Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="./script.js"></script>
+    <script src="./mapScript.js"></script>
     
     <script
       async defer 
@@ -187,7 +188,21 @@
       </div>
 
       <p>Here are some places I really wanna to visit some day!</p>
-      <div id="map"></div>
+      <div class="map-section">
+        <div id="map"></div>
+        <p>Add your own markers if you want)</p>
+        <form action="/add-marker" method="POST">
+          <input type="text" name="lat" id="lat" placeholder="Please enter lat coordinate">
+          <input type="text" name="lng" id="lng" placeholder="Please enter lng coordinate">
+          <input type="submit"></input>
+        </form>
+
+        <button onclick="showMarkers()" src="./mapScript.js">Show other's markers</button>
+
+        <form action="/delete-marker" method="POST">
+          <button>Delete other's markers</button>
+        </form>
+      </div>
     </div>
 
     <div class="comment-section">

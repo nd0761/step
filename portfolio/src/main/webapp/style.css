@@ -354,8 +354,36 @@ input[type="submit"] {
   margin-top: 10px;
 }
 
+.map-section {
+  text-align: center;
+}
+
 #map {
   margin-top: 10px;
   height: 350px;
   text-align: center;
+}
+
+#lat {
+  width: 165px;
+  height: 25px;
+  border: 1px solid rgb(163, 163, 163);
+}
+
+#lat placeholder {
+  color: rgb(163, 163, 163);
+}
+
+#lng {
+  width: 165px;
+  height: 25px;
+  border: 1px solid rgb(163, 163, 163);
+}
+
+#lng placeholder {
+  color: rgb(163, 163, 163);
+}
+
+.map-section [type="submit"] {
+  float: initial;
 }
