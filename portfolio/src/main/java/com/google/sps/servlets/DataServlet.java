@@ -47,8 +47,15 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get requested number of comments.
-    int numberOfComments = Integer.valueOf(request.getParameter("number"));
+    int numberOfComments;
     
+    // Check for the number parameter in request.
+    try {
+      numberOfComments = Integer.valueOf(request.getParameter("number"));
+    } catch(Exception e) {
+      numberOfComments = -1;
+    }
+
     if (numberOfComments == 0) {
       numberOfComments = -1;
     }
@@ -68,6 +75,7 @@ public class DataServlet extends HttpServlet {
       } else {
         numberOfComments -= 1;
       }
+
       String name = (String) entity.getProperty("name");
       String text = (String) entity.getProperty("text");
       int rating = ((Long) entity.getProperty("rating")).intValue();
