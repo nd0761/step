@@ -121,3 +121,10 @@ function deleteComments() {
     method: 'POST',
   }).then(res => console.log("Delete all comments"));
 }
+
+function initMap() {
+  let map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8
+  });
+}

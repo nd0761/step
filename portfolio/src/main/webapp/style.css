@@ -220,7 +220,7 @@ ul {
   top: 0;
   bottom: 0;
   right: 0;
-  width: 300px;
+  width: 0px;
   padding-top: 10px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -352,4 +352,9 @@ input[type="submit"] {
 
 #comment-field-table {
   margin-top: 10px;
+}
+
+#map {
+  margin-top: 10px;
+  height: 350px;
 }
