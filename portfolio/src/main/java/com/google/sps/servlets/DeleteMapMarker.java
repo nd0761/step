@@ -14,6 +14,8 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.Comment;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -38,25 +40,28 @@ import java.util.Map;
 import java.util.Iterator;
 
 import com.google.gson.Gson; 
-import com.google.gson.GsonBuilder; 
+import com.google.gson.GsonBuilder;  
 
-/** Servlet that deletes all coments from dataStoreService. */
-@WebServlet("/delete-comments")
-public class DeleteCommentsServlet extends HttpServlet {
-  /** Processes POST requests for "/delete-comments" and delete all stored comments. */
+/** Servlet that process information about user's markers. */
+@WebServlet("/delete-marker")
+public class DeleteMapMarker extends HttpServlet {
+  /** Processes POST request by deleting all markers. */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment");
+    Query query = new Query("Marker");
 
     // Get access to dataStore.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
+    // Create a list of all markers.
     List<Key> keys = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       keys.add(entity.getKey());
     }
 
+    // Delete markers.
     datastore.delete(keys);
+    response.sendRedirect("/index.html");
   }
 }
