@@ -15,6 +15,7 @@
 package com.google.sps.servlets;
 
 import com.google.sps.data.Comment;
+import com.google.sps.data.Marker;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -22,7 +23,9 @@ import com.google.appengine.api.datastore.Entity;
 
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
+
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
@@ -40,75 +43,52 @@ import java.util.Iterator;
 import com.google.gson.Gson; 
 import com.google.gson.GsonBuilder;  
 
-/** Servlet that store and return information about user comments. */
-@WebServlet("/comments")
-public class DataServlet extends HttpServlet {
-  /** Processes GET requests for "/comments" and returns a list of comments in JSON format. */
+/** Servlet that process information about user's markers. */
+@WebServlet("/markers")
+public class MapMarker extends HttpServlet {
+  /** Processes GET request by returning list of marker coords in JSON format. */
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get requested number of comments.
-    int numberOfComments;
-    
-    // Check for the number parameter in request.
-    try {
-      numberOfComments = Integer.valueOf(request.getParameter("number"));
-    } catch(Exception e) {
-      numberOfComments = -1;
-    }
-
-    if (numberOfComments == 0) {
-      numberOfComments = -1;
-    }
-
-    // Create new Query for Commen objects.
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {// Create new Query for Commen objects.
+    Query query = new Query("Marker");
 
     // Get access to dataStore.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Get list of comments.
-    List<Comment> commentsList = new ArrayList<>();
+    Gson gson = new Gson();
+
+    // Get list of markers.
+    List<Marker> markersList = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      if (numberOfComments == 0) {
-        break;
-      } else {
-        numberOfComments -= 1;
-      }
+      double lat = 123.0, lng = 123.0;
+      lat = (Double) entity.getProperty("lat");
+      lng = (Double) entity.getProperty("lng");
 
-      String name = (String) entity.getProperty("name");
-      String text = (String) entity.getProperty("text");
-      int rating = ((Long) entity.getProperty("rating")).intValue();
-
-      Comment comment = new Comment(name, text, rating);
+      Marker marker = new Marker(lat, lng);
       
-      commentsList.add(comment);
+      markersList.add(marker);
     }
 
     // Convert list of comments to JSON format.
-    Gson gson = new Gson();
-    String json = gson.toJson(commentsList);
+    String json = gson.toJson(markersList);
 
     // Return response to the request.
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
 
-  /** Processes POST request by storing received commentary. */
+  /** Processes POST request by storing received markers. */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Create DataStore entity.
-    Entity commentEntity = new Entity("Comment");
-    long timestamp = System.currentTimeMillis();
+    Entity markerEntity = new Entity("Marker");
 
-    commentEntity.setProperty("name", request.getParameter("user-name"));
-    commentEntity.setProperty("text", request.getParameter("user-text"));
-    commentEntity.setProperty("rating", Integer.valueOf(request.getParameter("user-rating")));
-    commentEntity.setProperty("timestamp", timestamp);
+    markerEntity.setProperty("lat", Double.valueOf(request.getParameter("lat")));
+    markerEntity.setProperty("lng", Double.valueOf(request.getParameter("lng")));
 
-    // Store new comment.
+    // Store new marker.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(commentEntity);
+    datastore.put(markerEntity);
 
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
