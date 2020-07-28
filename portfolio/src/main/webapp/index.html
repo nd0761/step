@@ -6,6 +6,13 @@
     <title>Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="./script.js"></script>
+    <script src="./mapScript.js"></script>
+    
+    <script
+      async defer 
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv-H8pVyOLYFGTWRaYz0uI_o84wj6oNCg&callback=initMap&libraries=&v=weekly"
+      type="text/javascript"
+    ></script>
   </head>
 
   <body>
@@ -23,7 +30,6 @@
     </button>
 
     <div id="content"> <!-- Main information -->
-
       <div id="animBg">
         <div class="myDIV"></div>
       </div>
@@ -181,11 +187,21 @@
         <div id="greeting-container"></div>
       </div>
 
-      <div class="accounts"> <!-- Links to my accounts -->
-        <a name="links"></a>
-        <a id="link-to-git-prof" href="https://github.com/nd0761">
-          <img src="images/logo.png" alt="GitHub logo"/>
-        </a>
+      <p>Here are some places I really wanna to visit some day!</p>
+      <div class="map-section">
+        <div id="map"></div>
+        <p>Add your own markers if you want)</p>
+        <form action="/markers" method="POST">
+          <input type="text" name="lat" id="lat" placeholder="Please enter lat coordinate">
+          <input type="text" name="lng" id="lng" placeholder="Please enter lng coordinate">
+          <input type="submit"></input>
+        </form>
+
+        <button onclick="showMarkers()" src="./mapScript.js">Show other's markers</button>
+
+        <form action="/delete-marker" method="POST">
+          <button>Delete other's markers</button>
+        </form>
       </div>
     </div>
 
@@ -233,6 +249,12 @@
       <div id="simple-comment-field-container">
         <a id="comment-field-table"></a>
       </div>
+    </div>
+ 
+    <div class="accounts"> <!-- Links to my accounts -->
+      <a id="link-to-git-prof" href="https://github.com/nd0761">
+        <img src="images/logo.png" alt="GitHub logo"/>
+      </a>
     </div>
   </body>
 

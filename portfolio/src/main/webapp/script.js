@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -97,19 +97,13 @@ function toggleCommentSection() {
   let displayButton = document.getElementsByClassName('display-comments-buttons')[0];
   let commentSection = document.getElementsByClassName('comment-section')[0];
 
-  if (commentSection.style.width == "450px") {
-    commentSection.style.width = "0%";
+  if (commentSection.style.display == "block") {
+    commentSection.style.width = "none";
     displayButton.innerHTML = "Show comment section";
 
-    let comments = document.getElementById("shown-comment");
-    while (comments != null) {
-      comments.parentNode.removeChild(comments);
-      comments = document.getElementById("shown-comment");
-    }
-
-    console.log("Remove comment section");
+    console.log("Close comment section");
   } else {
-    commentSection.style.width = "450px";
+    commentSection.style.width = "block";
     displayButton.innerHTML = "Close comment section";
 
     console.log("Show comment section");
