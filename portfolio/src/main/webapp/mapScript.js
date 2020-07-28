@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 let map;
 
 function showMarkers() {
-  fetch("/add-marker").then(response => response.json()).then((markerList) => {
+  fetch("/markers").then(response => response.json()).then((markerList) => {
     console.log("Get list of markers");
 
     for (i in markerList) {
@@ -167,7 +167,7 @@ function initMap() {
   map.mapTypes.set('styled_map', styledMapType);
   map.setMapTypeId('styled_map');
 
-  // The marker, positioned at Uluru
+  // Set markers on the map.
   let markerJapanTemple = new google.maps.Marker({position: japanTemple, map: map});
   let markerNewZealand = new google.maps.Marker({position: newZealandLake, map: map});
   let markerUganda = new google.maps.Marker({position: ugandaView, map: map});

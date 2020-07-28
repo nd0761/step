@@ -44,9 +44,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;  
 
 /** Servlet that process information about user's markers. */
-@WebServlet("/add-marker")
-public class AddMapMarker extends HttpServlet {
-  /** Processes GET request by returning list of marker doords in JSON format. */
+@WebServlet("/markers")
+public class MapMarker extends HttpServlet {
+  /** Processes GET request by returning list of marker coords in JSON format. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {// Create new Query for Commen objects.
     Query query = new Query("Marker");

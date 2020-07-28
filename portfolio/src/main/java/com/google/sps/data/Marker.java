@@ -14,7 +14,7 @@
 
 package com.google.sps.data;
 
-/** Class for storing an information about user commentaries. */
+/** Google maps's markers's class. */
 public class Marker {
   private double lat;
   private double lng;
@@ -37,11 +37,11 @@ public class Marker {
     return lng;
   }
 
-  public void updateLat(double newLat) {
+  public void setLat(double newLat) {
     lat = newLat;
   }
 
-  public void updateLng(double newLng) {
+  public void setLng(double newLng) {
     lng = newLng;
   }
 }

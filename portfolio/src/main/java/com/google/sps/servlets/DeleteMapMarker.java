@@ -42,7 +42,7 @@ import java.util.Iterator;
 import com.google.gson.Gson; 
 import com.google.gson.GsonBuilder;  
 
-/** Servlet that process information about user's markers. */
+/** Servlet that deletes all markers from DataStoreService. */
 @WebServlet("/delete-marker")
 public class DeleteMapMarker extends HttpServlet {
   /** Processes POST request by deleting all markers. */
