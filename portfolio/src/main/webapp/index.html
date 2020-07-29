@@ -182,13 +182,16 @@
       </div>
 
       <div class="quote"> <!-- Simple script -->
-        <p>Click here to get a random quote from Simpsons:</p>
-        <button onclick="addRandomGreeting() ">Hello</button>
+        <p>Click here to get a random greeting:</p>
+        <button onclick="addRandomGreeting()" id="get-greeting">Hello</button>
         <div id="greeting-container"></div>
       </div>
 
       <p>Here are some places I really wanna to visit some day!</p>
       <div class="map-section">
+
+        <button onclick="showMarkers(true)" src="./mapScript.js" id="show-markers">Show markers</button>
+        <button onclick="showEclipse()" src="./mapScript.js" id="show-eclipses">Show locations of eclipses </button>
         <div id="map"></div>
         <p>Add your own markers if you want)</p>
         <form action="/markers" method="POST">
@@ -197,10 +200,8 @@
           <input type="submit"></input>
         </form>
 
-        <button onclick="showMarkers()" src="./mapScript.js">Show other's markers</button>
-
         <form action="/delete-marker" method="POST">
-          <button>Delete other's markers</button>
+          <button id="delete-markers">Delete other's markers</button>
         </form>
       </div>
     </div>

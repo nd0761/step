@@ -39,6 +39,7 @@
   right: 0;
   margin-top: 5px;
   height: 25px;
+  width: 170px;
   border: solid rgb(163, 163, 163) 1px;
   backdrop-filter: blur(2px);
   background-color: rgb(255, 255, 255, 0.8);
@@ -335,7 +336,7 @@ input[type="submit"] {
   height: 25px;
 }
 
-#show-comments-button button {
+button {
   margin-right: 20px;
   height: 25px;
   width: 120px;
@@ -354,8 +355,22 @@ input[type="submit"] {
   margin-top: 10px;
 }
 
+#get-greeting {
+  float:initial;
+}
+
 .map-section {
   text-align: center;
+}
+
+#show-markers {
+  float:initial;
+  background: rgba(0, 255, 13, 0.3);
+}
+
+#show-eclipses {
+  float:initial;
+  width: 200px;
 }
 
 #map {
@@ -368,6 +383,7 @@ input[type="submit"] {
   width: 165px;
   height: 25px;
   border: 1px solid rgb(163, 163, 163);
+  border-radius: 3px;
 }
 
 #lat placeholder {
@@ -378,10 +394,18 @@ input[type="submit"] {
   width: 165px;
   height: 25px;
   border: 1px solid rgb(163, 163, 163);
+  border-radius: 3px;
 }
 
 #lng placeholder {
   color: rgb(163, 163, 163);
+}
+
+#delete-markers {
+  margin-top: 10px;
+  float: initial;
+  width: 200px;
+  background: rgba(255, 6, 6, 0.3);
 }
 
 .map-section [type="submit"] {
