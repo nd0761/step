@@ -23,13 +23,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/** Servlet which processes request to analyze message. */
 @WebServlet("/sentiment")
 public class SentimentAnalysis extends HttpServlet {
-
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String message = request.getParameter("message");
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String message;
+    
+    // Check for the message parameter in request.
+    try {
+      message = request.getParameter("message");
+    } catch(Exception e) {
+      message = "";
+    }
 
+    if (message == "") {
+      response.setContentType("text/html;");
+      response.getWriter().println("Please enter at least one word.");
+    }
+
+    // Get result;
     Document doc =
         Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
@@ -37,12 +50,8 @@ public class SentimentAnalysis extends HttpServlet {
     float score = sentiment.getScore();
     languageService.close();
 
-    // Output the sentiment score as HTML.
-    // A real project would probably store the score alongside the content.
+    // Output the sentiment score as a text.
     response.setContentType("text/html;");
-    response.getWriter().println("<h1>Sentiment Analysis</h1>");
-    response.getWriter().println("<p>You entered: " + message + "</p>");
-    response.getWriter().println("<p>Sentiment analysis score: " + score + "</p>");
-    response.getWriter().println("<p><a href=\"/\">Back</a></p>");
+    response.getWriter().println("Sentiment analysis score: " + score);
   }
 }

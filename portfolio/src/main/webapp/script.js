@@ -115,3 +115,15 @@ function deleteComments() {
     method: 'POST',
   }).then(res => console.log("Delete all comments"));
 }
+
+function analyzeMessage() {
+  let message = document.getElementsByClassName('message-to-analyze')[0];
+  let result = document.getElementsByClassName('analyze-result')[0];
+
+  let URL = "/sentiment?message=" + message.value;
+  fetch(URL).then(res => res.text()).then((res) => {
+    console.log(res);
+    console.log("Get sentiment analysis result");
+    result.innerHTML = res;
+  });
+}

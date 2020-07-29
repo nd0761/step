@@ -412,10 +412,11 @@ button {
   float: initial;
 }
 
-#message-analys {
+#message-analyze {
   text-align: center;
+  margin-left: 80px;
 }
 
-#message-analys button {
+#message-analyze button {
   float: initial;
 }

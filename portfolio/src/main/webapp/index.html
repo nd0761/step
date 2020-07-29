@@ -261,12 +261,11 @@
 
     <p>Type a message and click submit to analyze its sentiment:</p>
     
-    <div id="message-analys">
-      <form method="POST" action="/sentiment">
-        <textarea name="message"></textarea>
-        <br/>
-        <button>Submit</button>
-      </form>
+    <div id="message-analyze">
+      <textarea class="message-to-analyze"></textarea>
+      <br/>
+      <button onclick="analyzeMessage()">Submit</button>
+      <p class="analyze-result">Sentiment analysis score:</p>
     </div>
   </body>
 
