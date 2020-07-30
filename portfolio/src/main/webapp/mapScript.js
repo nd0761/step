@@ -15,7 +15,9 @@
 let map;
 
 function showMarkers() {
-  initMap(true);
+  // Initialize new map with markers.
+  let markerFlag = true;
+  initMap(markerFlag);
   fetch("/markers").then(response => response.json()).then((markerList) => {
     console.log("Get list of markers");
 
@@ -168,7 +170,7 @@ function initMap(markerFlag = true) {
   map.setMapTypeId('styled_map');
 
   // Set markers on the map if marker flag is True.
-  if (markerFlag == true) {
+  if (markerFlag) {
     let markerJapanTemple = new google.maps.Marker({position: japanTemple, map: map});
     let markerNewZealand = new google.maps.Marker({position: newZealandLake, map: map});
     let markerUganda = new google.maps.Marker({position: ugandaView, map: map});
@@ -178,7 +180,8 @@ function initMap(markerFlag = true) {
 
 function showEclipse() {
   // Initialize new map without markers.
-  initMap(false);
+  let markerFlag = false;
+  initMap(markerFlag);
   console.log("Initialise new map");
   
   // Parse csv files for solar/lunar eclipses from 2020 to 2030.
@@ -189,11 +192,13 @@ function showEclipse() {
   console.log("Parse lunar eclipses file")
   
   // Add markers to the map.
+  let solarLatCoord = 9;
+  let solarLngCoord = 10;
   for (let i = 1; i < solarEclipse.length; i++) {
-    let lat = parseLat(solarEclipse[i][9]);
-    let lng = parseLng(solarEclipse[i][10]);
+    let lat = parseLat(solarEclipse[i][solarLatCoord]);
+    let lng = parseLng(solarEclipse[i][solarLngCoord]);
 
-    let solarMerker = new google.maps.Marker({
+    let solarMarker = new google.maps.Marker({
       position: new google.maps.LatLng(lat, lng), 
       map: map,
       icon: {
@@ -207,11 +212,13 @@ function showEclipse() {
   }
   console.log("Add " + (solarEclipse.length - 1).toString() + " solar markers");
 
+  let lunarLatCoord = 11;
+  let lunarLngCoord = 12;
   for (let i = 1; i < lunarEclipse.length; i++) {
-    let lat = parseLat(lunarEclipse[i][11]);
-    let lng = parseLng(lunarEclipse[i][12]);
+    let lat = parseLat(lunarEclipse[i][lunarLatCoord]);
+    let lng = parseLng(lunarEclipse[i][lunarLngCoord]);
 
-    let lunarMerker = new google.maps.Marker({
+    let lunarMarker = new google.maps.Marker({
       position: new google.maps.LatLng(lat, lng), 
       map: map,
       icon: {
