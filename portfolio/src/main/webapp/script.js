@@ -121,9 +121,15 @@ function analyzeMessage() {
   let result = document.getElementsByClassName('analyze-result')[0];
 
   let URL = "/sentiment?message=" + message.value;
-  fetch(URL).then(res => res.text()).then((res) => {
-    console.log(res);
+  fetch(URL).then(response => response.json()).then((sentimentRes) => {
+    console.log(sentimentRes);
     console.log("Get sentiment analysis result");
-    result.innerHTML = res;
+
+    if (sentimentRes == -2) {
+      result.innerHTML = "Please enter at least one word.";
+      return;
+    }
+
+    result.innerHTML = "Sentiment analysis score: " + sentimentRes.toString();
   });
 }

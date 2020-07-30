@@ -23,35 +23,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson; 
+import com.google.gson.GsonBuilder;
+
 /** Servlet which processes request to analyze message. */
 @WebServlet("/sentiment")
 public class SentimentAnalysis extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String message;
-    
-    // Check for the message parameter in request.
-    try {
-      message = request.getParameter("message");
-    } catch(Exception e) {
-      message = "";
+    String message = request.getParameter("message");
+    Gson gson = new Gson();
+    float score = -2;
+
+    // Check message for content.
+    if (message == null || message.isEmpty()) {
+      String json = gson.toJson(score);
+
+      response.setContentType("application/json;");
+      response.getWriter().println(json);
+      return;
     }
 
-    if (message == "") {
-      response.setContentType("text/html;");
-      response.getWriter().println("Please enter at least one word.");
-    }
-
-    // Get result;
     Document doc =
         Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
     Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-    float score = sentiment.getScore();
+    score = sentiment.getScore();
     languageService.close();
 
-    // Output the sentiment score as a text.
-    response.setContentType("text/html;");
-    response.getWriter().println("Sentiment analysis score: " + score);
+    String json = gson.toJson(score);
+
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
   }
 }
