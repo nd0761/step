@@ -16,8 +16,8 @@ let map;
 
 function showMarkers() {
   // Initialize new map with markers.
-  let markerFlag = true;
-  initMap(markerFlag);
+  let showMarkersFlag = true;
+  initMap(showMarkersFlag);
   fetch("/markers").then(response => response.json()).then((markerList) => {
     console.log("Get list of markers");
 
@@ -28,7 +28,7 @@ function showMarkers() {
   });
 }
 
-function initMap(markerFlag = true) {
+function initMap(showMarkersFlag = true) {
   // Create styled map type object.
   let styledMapType = new google.maps.StyledMapType(
     [
@@ -170,7 +170,7 @@ function initMap(markerFlag = true) {
   map.setMapTypeId('styled_map');
 
   // Set markers on the map if marker flag is True.
-  if (markerFlag) {
+  if (showMarkersFlag) {
     let markerJapanTemple = new google.maps.Marker({position: japanTemple, map: map});
     let markerNewZealand = new google.maps.Marker({position: newZealandLake, map: map});
     let markerUganda = new google.maps.Marker({position: ugandaView, map: map});
@@ -178,25 +178,35 @@ function initMap(markerFlag = true) {
   console.log("Initialise new map");
 }
 
-function showEclipse() {
+async function showEclipse() {
   // Initialize new map without markers.
-  let markerFlag = false;
-  initMap(markerFlag);
+  let showMarkersFlag = false;
+  initMap(showMarkersFlag);
   console.log("Initialise new map");
   
   // Parse csv files for solar/lunar eclipses from 2020 to 2030.
-  let solarEclipse = parseCsv(readFile("./eclipse/solar_decade.csv"));
-  console.log("Parse solar eclipses file")
+  let solarEclipse = await parseCsv("./eclipse/solar_decade.csv");
+  console.log("Parse solar eclipses file");
+  console.log(solarEclipse[0]);
 
-  let lunarEclipse = parseCsv(readFile("./eclipse/lunar_decade.csv"));
-  console.log("Parse lunar eclipses file")
+  let lunarEclipse = await parseCsv("./eclipse/lunar_decade.csv");
+  console.log("Parse lunar eclipses file");
+  console.log(lunarEclipse[0]);
+
   
   // Add markers to the map.
   let solarLatCoord = 9;
   let solarLngCoord = 10;
+  let solarDate = 1;
+  let solarTime = 2;
   for (let i = 1; i < solarEclipse.length; i++) {
     let lat = parseLat(solarEclipse[i][solarLatCoord]);
     let lng = parseLng(solarEclipse[i][solarLngCoord]);
+
+    let infowindow = new google.maps.InfoWindow({
+      content: "<p><b>Date</b>: " + solarEclipse[i][solarDate] +
+              "</p><p><b>Time</b>: " + solarEclipse[i][solarTime] + "</p>"
+    });
 
     let solarMarker = new google.maps.Marker({
       position: new google.maps.LatLng(lat, lng), 
@@ -209,14 +219,28 @@ function showEclipse() {
         strokeWeight: 0.4
       },
     });
+
+    solarMarker.addListener('mouseover', function() {
+      infowindow.open(map, solarMarker);
+    });
+    solarMarker.addListener('mouseout', function() {
+      infowindow.close();
+    });
   }
   console.log("Add " + (solarEclipse.length - 1).toString() + " solar markers");
 
   let lunarLatCoord = 11;
   let lunarLngCoord = 12;
+  let lunarDate = 1;
+  let lunarTime = 2;
   for (let i = 1; i < lunarEclipse.length; i++) {
     let lat = parseLat(lunarEclipse[i][lunarLatCoord]);
     let lng = parseLng(lunarEclipse[i][lunarLngCoord]);
+
+    let infowindow = new google.maps.InfoWindow({
+      content: "<p><b>Date</b>: " + lunarEclipse[i][lunarDate] +
+              "</p><p><b>Time</b>: " + lunarEclipse[i][lunarTime] + "</p>"
+    });
 
     let lunarMarker = new google.maps.Marker({
       position: new google.maps.LatLng(lat, lng), 
@@ -229,34 +253,30 @@ function showEclipse() {
         strokeWeight: 0.4
       },
     });
+
+    lunarMarker.addListener('mouseover', function() {
+      infowindow.open(map, lunarMarker);
+    });
+    lunarMarker.addListener('mouseout', function() {
+      infowindow.close();
+    });
   }
   console.log("Add " + (lunarEclipse.length - 1).toString() + " lunar markers");
 }
 
-function readFile(filePath) {
-  let result = null;
+async function parseCsv(filepath) {
+  return await fetch(filepath).then(response => response.text()).then(csvFile => {
+    let parsedLines = [];
 
-  let xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", filePath, false);
-  xmlhttp.send();
+    // Store lines from the file.
+    let fileLines = csvFile.split(/\r\n|\n/);
 
-  if (xmlhttp.status == 200) {
-    result = xmlhttp.responseText;
-  }
-  return result;
-}
-
-function parseCsv(csvFile) {
-  // Store lines from the file.
-  let fileLines = csvFile.split(/\r\n|\n/);
-
-  let parsedLines = [];
-
-  // Parse file.
-  for (let i = 0; i < fileLines.length; ++i) {
-    parsedLines.push(fileLines[i].split(','));
-  }
-  return parsedLines
+    // Parse file.
+    for (let i = 0; i < fileLines.length; ++i) {
+      parsedLines.push(fileLines[i].split(','));
+    }
+    return parsedLines;
+  });
 }
 
 function parseLat(initLat) {
