@@ -411,3 +411,12 @@ button {
 .map-section [type="submit"] {
   float: initial;
 }
+
+#message-analyze {
+  text-align: center;
+  margin-left: 80px;
+}
+
+#message-analyze button {
+  float: initial;
+}
