@@ -16,8 +16,8 @@ let map;
 
 function showMarkers() {
   // Initialize new map with markers.
-  let showMarkersFlag = true;
-  initMap(showMarkersFlag);
+  let showMarkers = true;
+  initMap(showMarkers);
   fetch("/markers").then(response => response.json()).then((markerList) => {
     console.log("Get list of markers");
 
@@ -28,7 +28,7 @@ function showMarkers() {
   });
 }
 
-function initMap(showMarkersFlag = true) {
+function initMap(showMarkers = true) {
   // Create styled map type object.
   let styledMapType = new google.maps.StyledMapType(
     [
@@ -170,7 +170,7 @@ function initMap(showMarkersFlag = true) {
   map.setMapTypeId('styled_map');
 
   // Set markers on the map if marker flag is True.
-  if (showMarkersFlag) {
+  if (showMarkers) {
     let markerJapanTemple = new google.maps.Marker({position: japanTemple, map: map});
     let markerNewZealand = new google.maps.Marker({position: newZealandLake, map: map});
     let markerUganda = new google.maps.Marker({position: ugandaView, map: map});
@@ -180,8 +180,8 @@ function initMap(showMarkersFlag = true) {
 
 async function showEclipse() {
   // Initialize new map without markers.
-  let showMarkersFlag = false;
-  initMap(showMarkersFlag);
+  let showMarkers = false;
+  initMap(showMarkers);
   console.log("Initialise new map");
   
   // Parse csv files for solar/lunar eclipses from 2020 to 2030.
