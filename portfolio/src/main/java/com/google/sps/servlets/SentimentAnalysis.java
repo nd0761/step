@@ -36,20 +36,14 @@ public class SentimentAnalysis extends HttpServlet {
     float score = -2;
 
     // Check message for content.
-    if (message == null || message.isEmpty()) {
-      String json = gson.toJson(score);
-
-      response.setContentType("application/json;");
-      response.getWriter().println(json);
-      return;
+    if (!(message == null || message.isEmpty())) {
+      Document doc =
+          Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
+      LanguageServiceClient languageService = LanguageServiceClient.create();
+      Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+      score = sentiment.getScore();
+      languageService.close();
     }
-
-    Document doc =
-        Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
-    LanguageServiceClient languageService = LanguageServiceClient.create();
-    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-    score = sentiment.getScore();
-    languageService.close();
 
     String json = gson.toJson(score);
 
