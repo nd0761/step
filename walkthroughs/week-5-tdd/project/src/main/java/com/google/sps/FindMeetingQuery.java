@@ -28,39 +28,53 @@ import java.util.Comparator;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    List<TimeObj> importantEvents = new ArrayList<>();
+    // Create a list of existing meetings with mandatory attendees.
+    List<TimePoint> importantEvents = new ArrayList<>();
   
+    // List of possible time slots for the request.
     Collection<TimeRange> possibleSlots = new ArrayList<>();
 
-    TimeObj startOfTheDay = new TimeObj(0, true);
-    TimeObj endOfTheDay = new TimeObj(24 * 60, false);
+    // Add start and end of the day as time points.
+    TimePoint startOfTheDay = new TimePoint(0, true);
+    TimePoint endOfTheDay = new TimePoint(24 * 60, false);
 
     importantEvents.add(startOfTheDay);
     importantEvents.add(endOfTheDay);
 
+    // Pick events with mandatory attendees.
     for (Event event : events) {
       for (String attendee: request.getAttendees()) {
         if (event.getAttendees().contains(attendee)) {
-          TimeObj startOfEvent = new TimeObj(event.getWhen().start(), true);
+          TimePoint startOfEvent = new TimePoint(event.getWhen().start(), true);
           importantEvents.add(startOfEvent);
-          TimeObj endOfEvent = new TimeObj(event.getWhen().end(), false);
+          TimePoint endOfEvent = new TimePoint(event.getWhen().end(), false);
           importantEvents.add(endOfEvent);
           break;
         }
       }
     }
 
-    Collections.sort(importantEvents, TimeObj.ORDER_END_START);
+    // Sort all time points.
+    Collections.sort(importantEvents, TimePoint.ORDER_END_START);
+
+    // Number of active meeting for the moment under consideration.
     int numberOfActiveMeetings = 0;
     int endOfLastMeeting = 0;
-    for(TimeObj event : importantEvents) {
-      System.out.println(event.toString());
+
+    // numberOfActiveMeetings will be 0  - before start and after end of the day,
+    // 1 - if current time slot is free for all mandatory attendees,
+    // >1 - in any other case.
+  
+    // numberOfActiveMeetings will increase if new time point under consideration is a start for a meeting, and decrease in other case.
+    for(TimePoint event : importantEvents) {
       if (numberOfActiveMeetings == 1) {
+        // Check if there is enough time for requested meeting.
         if (event.time() - endOfLastMeeting >= request.getDuration()) {
           TimeRange freeSlot = TimeRange.fromStartDuration(endOfLastMeeting, event.time() - endOfLastMeeting);
           possibleSlots.add(freeSlot);
         }
       }
+      
       if (event.type()) {
         numberOfActiveMeetings += 1;
       } else {
@@ -68,7 +82,6 @@ public final class FindMeetingQuery {
         endOfLastMeeting = event.time();
       }
     }
-    System.out.println("HOLA");
     return possibleSlots;
   }
 }

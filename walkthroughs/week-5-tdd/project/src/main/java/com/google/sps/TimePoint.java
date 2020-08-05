@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,38 +17,39 @@ package com.google.sps;
 import java.util.Comparator;
 
 /**
- * Class representing a span of time, enforcing properties (e.g. start comes before end) and
- * providing methods to make ranges easier to work with (e.g. {@code overlaps}).
+ * Class representing a point of time (either start of an event or end of it).
  */
-public final class TimeObj {
+public final class TimePoint {
 
   /**
-   * A comparator for sorting ranges by their start time in ascending order.
+   * A comparator for sorting objects by their time in ascending order.
    */
-  public static final Comparator<TimeObj> ORDER_END_START = new Comparator<TimeObj>() {
+  public static final Comparator<TimePoint> ORDER_END_START = new Comparator<TimePoint>() {
     @Override
-    public int compare(TimeObj a, TimeObj b) {
+    public int compare(TimePoint a, TimePoint b) {
         return Long.compare(a.time(), b.time());
     }
   };
 
   private final int time;
+
+  // Type of time point true - if it is the start of an event, false - for the end of it.
   private final boolean type;
 
-  public TimeObj(int time, boolean type) {
+  public TimePoint(int time, boolean type) {
     this.time = time;
     this.type = type;
   }
 
-  /**
-   * Returns the start of the range in minutes.
-   */
   public int time() {
     return time;
   }
+
   public boolean type() {
     return type;
-  }public String toString() {
-    return String.format("Time: [%d] Type:, (%b)", time, type);
+  }
+
+  public String toString() {
+    return String.format("Time: [%d], Type: [%b]", time, type);
   }
 }
