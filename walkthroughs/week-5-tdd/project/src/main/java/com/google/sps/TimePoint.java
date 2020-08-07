@@ -26,19 +26,19 @@ public final class TimePoint {
   public static final Comparator<TimePoint> ORDER_END_START = new Comparator<TimePoint>() {
     @Override
     public int compare(TimePoint a, TimePoint b) {
-      if (a.time() == b.time()) {
-        if (a.type() == 2) {
+      if (a.getTime() == b.getTime()) {
+        if (a.getType() == 2) {
           return -1;
         }
-        if (b.type() == 2) {
+        if (b.getType() == 2) {
           return 1;
         }
-        if (a.type() == 4) {
+        if (a.getType() == 4) {
           return -1;
         }
         return 1;
       }
-      return Long.compare(a.time(), b.time());
+      return Long.compare(a.getTime(), b.getTime());
     }
   };
 
@@ -55,15 +55,15 @@ public final class TimePoint {
     this.numberOfOptional = numberOfOptional;
   }
 
-  public int time() {
+  public int getTime() {
     return time;
   }
 
-  public int type() {
+  public int getType() {
     return type;
   }
 
-  public int numberOfOptional() {
+  public int getNumberOfOptional() {
     return numberOfOptional;
   }
 
