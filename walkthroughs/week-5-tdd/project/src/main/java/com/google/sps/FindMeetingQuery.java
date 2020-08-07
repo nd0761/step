@@ -40,22 +40,26 @@ public final class FindMeetingQuery {
     // numberOfActiveMeetings will be 0  - before start and after end of the day,
     // 1 - if current time slot is free for all mandatory attendees,
     // >1 - in any other case.
-  
-    // numberOfActiveMeetings will increase if new time point under consideration is a start for a meeting, and decrease in other case.
+
+    // numberOfActiveMeetings will increase if new time point under consideration
+    // is a start for a meeting, and decrease in other case.
     for(TimePoint event : importantEvents) {
       if (numberOfActiveMeetings == 1) {
         // Check if there is enough time for requested meeting.
-        if (event.time() - endOfLastMeeting >= request.getDuration()) {
-          TimeRange freeSlot = TimeRange.fromStartDuration(endOfLastMeeting, event.time() - endOfLastMeeting);
+        if (event.getTime() - endOfLastMeeting >= request.getDuration()) {
+          TimeRange freeSlot = TimeRange.fromStartDuration(
+            endOfLastMeeting, 
+            event.getTime() - endOfLastMeeting
+            );
           possibleSlots.add(freeSlot);
         }
       }
-      
-      if (event.type() == 1) {
+
+      if (event.getType() == 1) {
         numberOfActiveMeetings += 1;
       } else {
         numberOfActiveMeetings -= 1;
-        endOfLastMeeting = event.time();
+        endOfLastMeeting = event.getTime();
       }
     }
     return possibleSlots;
@@ -84,33 +88,28 @@ public final class FindMeetingQuery {
     optionalEvents.add(endOfTheDay);
 
     for (Event event : events) {
-      boolean mandatoryAttendee = false;
+      // Check if any of mandatory visitors attends this event.
+      boolean mandatoryAttendee = !Collections.disjoint(event.getAttendees(), request.getAttendees());
+      // Check if any of optional visitors attends this event.
+      boolean optionalAttendee = !Collections.disjoint(event.getAttendees(), request.getOptionalAttendees());
       // Pick events with mandatory attendees (fill list for optional as well).
-      for (String attendee: request.getAttendees()) {
-        if (event.getAttendees().contains(attendee)) {
-          TimePoint startOfEvent = new TimePoint(event.getWhen().start(), 1, -1);
-          importantEvents.add(startOfEvent);
-          optionalEvents.add(startOfEvent);
-          TimePoint endOfEvent = new TimePoint(event.getWhen().end(), 2, -1);
-          importantEvents.add(endOfEvent);
-          optionalEvents.add(endOfEvent);
-          mandatoryAttendee = true;
-          break;
-        }
-      }
+
+      TimePoint startOfEvent = new TimePoint(event.getWhen().start(), 1, -1);
+      TimePoint endOfEvent = new TimePoint(event.getWhen().end(), 2, -1);
+      
       if (mandatoryAttendee) {
+        importantEvents.add(startOfEvent);
+        importantEvents.add(endOfEvent);
+
+        optionalEvents.add(startOfEvent);
+        optionalEvents.add(endOfEvent);
         continue;
       }
-
-      // Pick events with optional attendees.
-      for (String attendee: request.getOptionalAttendees()) {
-        if (event.getAttendees().contains(attendee)) {
-          TimePoint startOfEvent = new TimePoint(event.getWhen().start(), 1, -1);
-          optionalEvents.add(startOfEvent);
-          TimePoint endOfEvent = new TimePoint(event.getWhen().end(), 2, -1);
-          optionalEvents.add(endOfEvent);
-          break;
-        }
+      
+      if (optionalAttendee) {
+        optionalEvents.add(startOfEvent);
+        optionalEvents.add(endOfEvent);
+        continue;
       }
     }
 
