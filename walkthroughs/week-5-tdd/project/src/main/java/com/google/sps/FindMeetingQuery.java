@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,33 +27,9 @@ import java.util.Iterator;
 import java.util.Comparator;
 
 public final class FindMeetingQuery {
-  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    // Create a list of existing meetings with mandatory attendees.
-    List<TimePoint> importantEvents = new ArrayList<>();
-  
-    // List of possible time slots for the request.
+  /** Return free slots based on list of time points. */
+  public Collection<TimeRange> getFreeSlots(List<TimePoint> importantEvents, MeetingRequest request) {
     Collection<TimeRange> possibleSlots = new ArrayList<>();
-
-    // Add start and end of the day as time points.
-    TimePoint startOfTheDay = new TimePoint(0, true);
-    TimePoint endOfTheDay = new TimePoint(24 * 60, false);
-
-    importantEvents.add(startOfTheDay);
-    importantEvents.add(endOfTheDay);
-
-    // Pick events with mandatory attendees.
-    for (Event event : events) {
-      for (String attendee: request.getAttendees()) {
-        if (event.getAttendees().contains(attendee)) {
-          TimePoint startOfEvent = new TimePoint(event.getWhen().start(), true);
-          importantEvents.add(startOfEvent);
-          TimePoint endOfEvent = new TimePoint(event.getWhen().end(), false);
-          importantEvents.add(endOfEvent);
-          break;
-        }
-      }
-    }
-
     // Sort all time points.
     Collections.sort(importantEvents, TimePoint.ORDER_END_START);
 
@@ -75,7 +51,7 @@ public final class FindMeetingQuery {
         }
       }
       
-      if (event.type()) {
+      if (event.type() == 1) {
         numberOfActiveMeetings += 1;
       } else {
         numberOfActiveMeetings -= 1;
@@ -83,5 +59,65 @@ public final class FindMeetingQuery {
       }
     }
     return possibleSlots;
+  }
+
+  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+    // Create a list of existing meetings with mandatory attendees.
+    List<TimePoint> importantEvents = new ArrayList<>();
+    // Create a list of existing meetings with optional attendees considered as mandatory.
+    List<TimePoint> optionalEvents = new ArrayList<>();
+  
+    // List of possible time slots for mandatory attendees.
+    Collection<TimeRange> possibleMandatorySlots = new ArrayList<>();
+    // List of possible time slots for optional attendees.
+    Collection<TimeRange> possibleOptionalSlots = new ArrayList<>();
+
+    // Add start and end of the day as time points.
+    TimePoint startOfTheDay = new TimePoint(0, 1, -1);
+    TimePoint endOfTheDay = new TimePoint(24 * 60, 2, -1);
+
+    importantEvents.add(startOfTheDay);
+    importantEvents.add(endOfTheDay);
+
+    optionalEvents.add(startOfTheDay);
+    optionalEvents.add(endOfTheDay);
+
+    // Pick events with mandatory attendees.
+    for (Event event : events) {
+      boolean mandatoryAttendee = false;
+      for (String attendee: request.getAttendees()) {
+        if (event.getAttendees().contains(attendee)) {
+          TimePoint startOfEvent = new TimePoint(event.getWhen().start(), 1, -1);
+          importantEvents.add(startOfEvent);
+          optionalEvents.add(startOfEvent);
+          TimePoint endOfEvent = new TimePoint(event.getWhen().end(), 2, -1);
+          importantEvents.add(endOfEvent);
+          optionalEvents.add(endOfEvent);
+          mandatoryAttendee = true;
+          break;
+        }
+      }
+      if (mandatoryAttendee) {
+        continue;
+      }
+      for (String attendee: request.getOptionalAttendees()) {
+        if (event.getAttendees().contains(attendee)) {
+          TimePoint startOfEvent = new TimePoint(event.getWhen().start(), 1, -1);
+          optionalEvents.add(startOfEvent);
+          TimePoint endOfEvent = new TimePoint(event.getWhen().end(), 2, -1);
+          optionalEvents.add(endOfEvent);
+          break;
+        }
+      }
+    }
+
+    // Get possible slots for manadatory and optional attendees.
+    possibleMandatorySlots = getFreeSlots(importantEvents, request);
+    possibleOptionalSlots = getFreeSlots(optionalEvents, request);
+
+    if (possibleOptionalSlots.size() != 0) {
+      return possibleOptionalSlots;
+    }
+    return possibleMandatorySlots;
   }
 }

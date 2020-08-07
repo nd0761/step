@@ -98,12 +98,12 @@ function toggleCommentSection() {
   let commentSection = document.getElementsByClassName('comment-section')[0];
 
   if (commentSection.style.display == "block") {
-    commentSection.style.width = "none";
+    commentSection.style.display = "none";
     displayButton.innerHTML = "Show comment section";
 
     console.log("Close comment section");
   } else {
-    commentSection.style.width = "block";
+    commentSection.style.display = "block";
     displayButton.innerHTML = "Close comment section";
 
     console.log("Show comment section");

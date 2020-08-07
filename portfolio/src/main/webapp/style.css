@@ -221,11 +221,12 @@ ul {
   top: 0;
   bottom: 0;
   right: 0;
-  width: 0px;
+  width: 450px;
   padding-top: 10px;
   overflow-x: hidden;
   overflow-y: scroll;
   position: fixed;
+  display: none;
   z-index: 1;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgb(163, 163, 163);
@@ -236,6 +237,7 @@ ul {
 
 #delete-comments-button {
   height: 25px;
+  width: auto;
   border: solid rgb(163, 163, 163) 1px;
   background-color: rgb(255, 255, 255, 0.8);
   color: rgb(116, 116, 116);
