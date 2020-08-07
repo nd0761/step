@@ -44,9 +44,12 @@ public final class TimePoint {
 
   private final int time;
 
-  // Type of time point 1 - start of an event for mandatory attendee, 2 - end of an event for mandatory, 3 - start for optional, 4 - end for optional.
+  // Type of time point 1 - start of an event for mandatory attendee,
+  // 2 - end of an event for mandatory,
+  // 3 - start for optional, 4 - end for optional.
   private final int type;
-  // A number of optional attendees for that event, it will be -1 if there some mandatory attendee for that event.
+  // A number of optional attendees for that event,
+  // it will be -1 if there some mandatory attendee for that event.
   private final int numberOfOptional;
 
   public TimePoint(int time, int type, int numberOfOptional) {
