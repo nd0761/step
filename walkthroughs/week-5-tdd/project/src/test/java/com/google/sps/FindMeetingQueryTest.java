@@ -130,7 +130,7 @@ public final class FindMeetingQueryTest {
 
 
   @Test
-  public void everyAttendeeIsConsideredNew01() {
+  public void twoSeparateMandatoryAttendeesOneIntersectingOptional() {
     //           |-------------C---------------|
     // Events  :       |--A--|     |--B--|
     // Day     : |-----------------------------|
@@ -287,7 +287,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void justEnoughRoomNew01() {
+  public void justEnoughRoomWhichIsTakenByOptional() {
     // Events  : |--A-||-B-| |----A----|
     // Day     : |---------------------|
     // Options :       |-----|
@@ -311,7 +311,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void newTestOnlyOptional01() {
+  public void threeOptionalAttendees() {
     // Events  :    |-A-|  |-B-|   |-C-|
     // Day     : |---------------------|
     // Options : |--|   |-|    |---|
@@ -340,7 +340,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void newTestOnlyOptional02() {
+  public void twoOptionalIntersectingAttendees() {
     // Events  : |-------A--|----|---B-|
     // Day     : |---------------------|
     // Options : |---------------------|
